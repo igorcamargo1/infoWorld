@@ -8,7 +8,8 @@ public class GovernoDto {
 
 	private String liderPolitico;
 
-	public GovernoDto(String formaGoverno, String liderPolitico) {
+	public GovernoDto(Long id, String formaGoverno, String liderPolitico) {
+		this.id = id;
 		this.formaGoverno = formaGoverno;
 		this.liderPolitico = liderPolitico;
 	}

@@ -45,15 +45,15 @@ public class Pais {
 
 	@OneToOne
 	@JoinColumn(name = "id_geografia")
-	private Economia geografia;
+	private Geografia geografia;
 	
 	@OneToOne
 	@JoinColumn(name = "id_demografia")
-	private Economia demografia;
+	private Demografia demografia;
 	
 	@OneToOne
 	@JoinColumn(name = "id_governo")
-	private Economia governo;
+	private Governo governo;
 	
 	@ManyToMany
 	@JoinTable(
@@ -68,7 +68,7 @@ public class Pais {
 	}
 
 	public Pais(String nome, String capital, String codigoPais, String descricao, Continente continente,
-			Economia economia, Economia geografia, Economia demografia, Economia governo, Set<Idioma> idiomas) {
+			Economia economia, Geografia geografia, Demografia demografia, Governo governo, Set<Idioma> idiomas) {
 		this.nome = nome;
 		this.capital = capital;
 		this.codigoPais = codigoPais;
@@ -137,27 +137,27 @@ public class Pais {
 		this.economia = economia;
 	}
 
-	public Economia getGeografia() {
+	public Geografia getGeografia() {
 		return geografia;
 	}
 
-	public void setGeografia(Economia geografia) {
+	public void setGeografia(Geografia geografia) {
 		this.geografia = geografia;
 	}
 
-	public Economia getDemografia() {
+	public Demografia getDemografia() {
 		return demografia;
 	}
 
-	public void setDemografia(Economia demografia) {
+	public void setDemografia(Demografia demografia) {
 		this.demografia = demografia;
 	}
 
-	public Economia getGoverno() {
+	public Governo getGoverno() {
 		return governo;
 	}
 
-	public void setGoverno(Economia governo) {
+	public void setGoverno(Governo governo) {
 		this.governo = governo;
 	}
 
