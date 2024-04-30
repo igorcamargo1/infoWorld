@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.dto.ContinenteDto;
+import br.com.magna.exception.ContinenteException;
 import br.com.magna.model.Continente;
 import br.com.magna.repository.ContinenteRepository;
 
@@ -29,10 +30,11 @@ public class ContinenteService {
 	}
 
 	public ContinenteDto criaContinente(ContinenteDto continenteDto) {
+		
 		Continente continente = new Continente();
-
 		continente.setNome(continenteDto.getNome());
 		continente = salvaContinente(continente);
+		
 		return convertToDto(continente);
 	}
 	
@@ -47,7 +49,7 @@ public class ContinenteService {
 		if (continenteRepository.existsById(idContinente))
 			continenteRepository.deleteById(idContinente);
 		else
-			throw new RuntimeException("Continente com o ID " + idContinente + " não encontrada");
+			throw new ContinenteException("Continente com o ID " + idContinente + " não encontrada");
 
 	}
 	

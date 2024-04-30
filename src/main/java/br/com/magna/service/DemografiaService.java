@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.dto.DemografiaDto;
+import br.com.magna.exception.DemografiaException;
 import br.com.magna.model.Demografia;
 import br.com.magna.repository.DemografiaRepository;
 
@@ -50,7 +51,7 @@ public class DemografiaService {
 		if (demografiaRepository.existsById(idDemografia))
 			demografiaRepository.deleteById(idDemografia);
 		else
-			throw new RuntimeException("Demografia com o ID " + idDemografia + " não encontrada");
+			throw new DemografiaException("Demografia com o ID " + idDemografia + " não encontrada");
 
 	}
 	

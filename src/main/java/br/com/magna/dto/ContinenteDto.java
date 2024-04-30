@@ -9,7 +9,6 @@ public class ContinenteDto {
 	}
 
 	public ContinenteDto(Long id, String nome) {
-		super();
 		this.id = id;
 		this.nome = nome;
 	}

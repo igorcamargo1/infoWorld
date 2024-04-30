@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.dto.GovernoDto;
+import br.com.magna.exception.GovernoException;
 import br.com.magna.model.Governo;
 import br.com.magna.repository.GovernoRepository;
 
@@ -49,7 +50,7 @@ public class GovernoService {
 	
 	public void deletaGoverno(Long id) {
 		if(governoRepository.existsById(id)) governoRepository.deleteById(id);
-		else throw new RuntimeException("Governo com o ID " + id + " não encontrada");
+		else throw new GovernoException("Governo com o ID " + id + " não encontrada");
 	}
 	
 	public Page<GovernoDto> listaTodos(Pageable page){

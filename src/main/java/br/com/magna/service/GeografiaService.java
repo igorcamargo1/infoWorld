@@ -8,8 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.dto.GeografiaDto;
+import br.com.magna.exception.GeografiaException;
 import br.com.magna.model.Geografia;
 import br.com.magna.repository.GeografiaRepository;
+import br.com.magna.validator.AreaValidator;
+import br.com.magna.validator.PopulacaoValidator;
 
 @Service
 public class GeografiaService {
@@ -33,6 +36,8 @@ public class GeografiaService {
 	}
 
 	public GeografiaDto criaGeografia(GeografiaDto geografiaDto) {
+		AreaValidator.validate(geografiaDto);
+		PopulacaoValidator.validate(geografiaDto);
 		Geografia geografia = new Geografia();
 
 		geografia.setLatitude(geografiaDto.getLatitude());
@@ -60,7 +65,7 @@ public class GeografiaService {
 		if (geografiaRepository.existsById(idGeografia))
 			geografiaRepository.deleteById(idGeografia);
 		else
-			throw new RuntimeException("Geografia com o ID " + idGeografia + " não encontrada");
+			throw new GeografiaException("Geografia com o ID " + idGeografia + " não encontrada");
 
 	}
 

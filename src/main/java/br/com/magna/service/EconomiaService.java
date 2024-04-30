@@ -8,8 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.dto.EconomiaDto;
+import br.com.magna.exception.EconomiaException;
 import br.com.magna.model.Economia;
 import br.com.magna.repository.EconomiaRepository;
+import br.com.magna.validator.PibValidator;
 
 @Service
 public class EconomiaService {
@@ -31,6 +33,7 @@ public class EconomiaService {
 	}
 
 	public EconomiaDto criaEconomia(EconomiaDto economiaDto) {
+		PibValidator.validate(economiaDto);
 		Economia economia = new Economia();
 
 		economia.setMoeda(economiaDto.getMoeda());
@@ -53,7 +56,7 @@ public class EconomiaService {
 		if (economiaRepository.existsById(idEconomia))
 			economiaRepository.deleteById(idEconomia);
 		else
-			throw new RuntimeException("Economia com o ID " + idEconomia + " não encontrada");
+			throw new EconomiaException("Economia com o ID " + idEconomia + " não encontrada");
 
 	}
 

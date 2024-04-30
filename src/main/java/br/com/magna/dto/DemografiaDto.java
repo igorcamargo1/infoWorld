@@ -11,7 +11,6 @@ public class DemografiaDto {
 	}
 
 	public DemografiaDto(Long id, Float natalidade, Float mortalidade) {
-		super();
 		this.id = id;
 		this.natalidade = natalidade;
 		this.mortalidade = mortalidade;

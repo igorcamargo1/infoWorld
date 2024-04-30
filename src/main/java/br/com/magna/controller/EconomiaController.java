@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.magna.dto.EconomiaDto;
 import br.com.magna.model.Economia;
@@ -48,11 +49,14 @@ public class EconomiaController {
 	
 	@DeleteMapping("/deletar/{id}")
 	public ResponseEntity<Void> deletarEconomiaPorId(@PathVariable("id") Long id) {
-	    // Lógica para deletar a economia com base no ID fornecido
-	    economiaService.deletaEconomia(id);
-	    return ResponseEntity.noContent().build();
+	    try {
+	        // Lógica para deletar a economia com base no ID fornecido
+	        economiaService.deletaEconomia(id);
+	        return ResponseEntity.noContent().build();
+	    } catch (RuntimeException e) {
+	        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Economia não encontrada", e);
+	    }
 	}
-	
 	@GetMapping("/listar/todos")
 	public ResponseEntity<Page<EconomiaDto>> listarEconomia(@PageableDefault(size = 10) Pageable page){
 		return ResponseEntity.status(HttpStatus.OK).body(economiaService.listaTodos(page));
@@ -60,7 +64,12 @@ public class EconomiaController {
 	
 	@GetMapping("/listar/{id}")
 	public ResponseEntity<EconomiaDto> buscaPorId(@PathVariable("id") Long id){
-		return ResponseEntity.status(HttpStatus.OK).body(economiaService.buscaPorId(id));
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(economiaService.buscaPorId(id));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		
 	}
 	
 	@GetMapping("/moedas/{moeda}")
